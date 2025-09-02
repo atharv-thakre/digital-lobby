@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Hub - Interactive Projects</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a1a2e;
+            --light: #16213e;
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --shadow: rgba(102, 126, 234, 0.3);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(-45deg, var(--dark), var(--light), #0f3460, var(--secondary));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hide scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for Firefox */
+        html {
+            scrollbar-width: none;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(240, 147, 251, 0.8);
+            }
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .card-title {
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            transition: left 0.3s ease;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: floatCircle 20s infinite linear;
+        }
+
+        @keyframes floatCircle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .ripple-effect {
+            position: fixed;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background: rgba(102, 126, 234, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .card-icon {
+                font-size: 3rem;
+            }
+        }
+
+        /* Special effects for different card types */
+        .blockchain-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1));
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 206, 209, 0.1));
+        }
+
+        .github-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.1));
+        }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+    <div class="floating-elements"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">Portfolio Hub</h1>
+            <p class="subtitle">Explore Interactive Projects & Demos</p>
+        </header>
+        
+        <div class="cards-container">
+            <div class="card blockchain-card" onclick="navigateTo('blockchain-01.html')">
+                <span class="card-icon">⛓️</span>
+                <h2 class="card-title">Blockchain Demo</h2>
+                <p class="card-description">Explore the fundamentals of blockchain technology with this interactive demonstration featuring blocks, hashing, and cryptographic principles.</p>
+                <button class="btn">
+                    <span>Launch Demo</span>
+                </button>
+            </div>
+            
+            <div class="card game-card" onclick="navigateTo('game_t3.html')">
+                <span class="card-icon">🎮</span>
+                <h2 class="card-title">Tic Tac Toe</h2>
+                <p class="card-description">Challenge yourself with this classic strategy game featuring smooth animations, AI opponent, and modern material design interface.</p>
+                <button class="btn">
+                    <span>Play Game</span>
+                </button>
+            </div>
+            
+            <div class="card github-card" onclick="navigateTo('https://github.com')">
+                <span class="card-icon">🐙</span>
+                <h2 class="card-title">GitHub Profile</h2>
+                <p class="card-description">Visit my GitHub profile to explore the source code, contribute to projects, and discover more innovative development work.</p>
+                <button class="btn">
+                    <span>View Profile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Create floating circles
+        function createFloatingCircles() {
+            const container = document.querySelector('.floating-elements');
+            
+            for (let i = 0; i < 10; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'floating-circle';
+                const size = Math.random() * 100 + 50;
+                circle.style.width = size + 'px';
+                circle.style.height = size + 'px';
+                circle.style.left = Math.random() * 100 + '%';
+                circle.style.animationDelay = Math.random() * 20 + 's';
+                circle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                container.appendChild(circle);
+            }
+        }
+
+        // Ripple effect on click
+        function createRipple(event) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple-effect';
+            
+            const rect = event.currentTarget.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Navigation function
+        function navigateTo(url) {
+            // Add loading animation
+            document.body.style.opacity = '0.8';
+            document.body.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                if (url.startsWith('http')) {
+                    window.open(url, '_blank');
+                    document.body.style.opacity = '1';
+                    document.body.style.transform = 'scale(1)';
+                } else {
+                    window.location.href = url;
+                }
+            }, 300);
+        }
+
+        // Add click ripple effect to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', createRipple);
+        });
+
+        // Optimized mouse trail effect (less intensive)
+        let mouseTrail = [];
+        let lastMouseMove = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastMouseMove > 100) { // Throttle to every 100ms
+                mouseTrail.push({x: e.clientX, y: e.clientY, time: now});
+                lastMouseMove = now;
+                
+                if (mouseTrail.length > 5) { // Reduced trail length
+                    mouseTrail.shift();
+                }
+            }
+        });
+
+        // Subtle hover effect for cards (replaces problematic parallax)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case '1':
+                    navigateTo('blockchain-01.html');
+                    break;
+                case '2':
+                    navigateTo('game_t3.html');
+                    break;
+                case '3':
+                    navigateTo('https://github.com');
+                    break;
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            createFloatingCircles();
+            
+            // Add loading animation to body
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                document.body.style.transition = 'all 0.8s ease';
+                document.body.style.opacity = '1';
+                document.body.style.transform = 'scale(1)';
+            }, 100);
+        });
+
+        // Optimized dynamic background color change (slower and less frequent)
+        let hue = 0;
+        setInterval(() => {
+            hue += 0.1; // Reduced from 0.5 to 0.1
+            document.documentElement.style.setProperty('--primary', `hsl(${hue}, 70%, 60%)`);
+        }, 500); // Increased from 100ms to 500ms
+    </script>
+</body>
+</html>
