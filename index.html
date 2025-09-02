@@ -29,9 +29,10 @@
             background: linear-gradient(-45deg, var(--dark), var(--light), #0f3460, var(--secondary));
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             position: relative;
+            scroll-behavior: smooth;
         }
 
         /* Hide scrollbar for webkit browsers */
@@ -90,7 +91,7 @@
         .container {
             position: relative;
             z-index: 1;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -176,6 +177,7 @@
 
         .card:nth-child(2) { animation-delay: 0.2s; }
         .card:nth-child(3) { animation-delay: 0.4s; }
+        .card:nth-child(4) { animation-delay: 0.6s; }
 
         .card::before {
             content: '';
@@ -350,6 +352,10 @@
             background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 206, 209, 0.1));
         }
 
+        .rms-card {
+            background: linear-gradient(135deg, rgba(255, 99, 71, 0.1), rgba(255, 20, 147, 0.1));
+        }
+
         .github-card {
             background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.1));
         }
@@ -384,7 +390,16 @@
                 </button>
             </div>
             
-            <div class="card github-card" onclick="navigateTo('https://github.com/atharv-thakre')">
+            <div class="card rms-card" onclick="navigateTo('rms.html')">
+                <span class="card-icon">🏪</span>
+                <h2 class="card-title">Retail Management System</h2>
+                <p class="card-description">A comprehensive Python GUI application built with Tkinter for managing retail operations, inventory, and sales transactions efficiently.</p>
+                <button class="btn">
+                    <span>View Project</span>
+                </button>
+            </div>
+            
+            <div class="card github-card" onclick="navigateTo('https://github.com')">
                 <span class="card-icon">🐙</span>
                 <h2 class="card-title">GitHub Profile</h2>
                 <p class="card-description">Visit my GitHub profile to explore the source code, contribute to projects, and discover more innovative development work.</p>
@@ -506,6 +521,9 @@
                     navigateTo('game_t3.html');
                     break;
                 case '3':
+                    navigateTo('rms.html');
+                    break;
+                case '4':
                     navigateTo('https://github.com');
                     break;
             }
